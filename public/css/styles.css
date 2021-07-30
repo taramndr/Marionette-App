@@ -1,0 +1,13 @@
+.bg-success{
+    background-color: green;
+}
+  
+.bg-error{
+    background-color: red;
+}
+
+body {
+    background-color: #ccc;
+    margin: 0;
+    padding: 0;
+}
