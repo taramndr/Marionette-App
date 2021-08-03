@@ -7,6 +7,7 @@ import { TodosView } from './views/todos';
 
 /*
 // Import the Backbone module and its dependencies
+// test
 var Backbone = require('backbone');
 
 // Import our view
