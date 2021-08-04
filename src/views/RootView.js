@@ -3,7 +3,6 @@ import _ from 'underscore';
 
 import template from '../templates/main.html';
 import TodosView from './TodosView';
-import TodoModel from '../models/todo';
 
 const RootView = View.extend({
     urlRoot: 'http://localhost:3000/todos',
@@ -52,17 +51,31 @@ const RootView = View.extend({
         // get form input values
         let todoTitle = this.$('.todo-form__title').val();
         let todoInfo = this.$('.todo-form__info').val();
-        console.log('todoTitle', todoTitle)
-        console.log('todoInfo', todoInfo)
 
-        console.log("this.model", this.model);
-        // return this.model.save(null, { type: 'POST' });
+        console.log('this.model', this.model);
+        this.model.set('title', todoTitle);
+        this.model.set('info', todoInfo);
+
+        console.log('todoTitle', todoTitle);
+        console.log('todoInfo', todoInfo);
+
+
+        return this.model.save({}, // { type: 'POST' },
+            {
+                success: (res) => {
+                    console.log('Success on post', res)
+
+                },
+                error: () => {
+                    console.log('Error on post')
+                }
+            })
 
         // for anything  complex, make a custom call.
         //  return Backbone.ajax(_.extend({
         //     url: this.url(),
         //     method: "POST",
-        //     data: this.attributes,
+        //     data: this.data,
         //     dataType: "json",
         // }, options));
     },

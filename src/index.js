@@ -1,5 +1,6 @@
 import { Application } from 'backbone.marionette';
 import RootView from './views/RootView';
+import TodoModel from './models/todo';
 
 const App = Application.extend({
     region: '#root',
@@ -10,7 +11,9 @@ const App = Application.extend({
 
     },
     onStart(app, options) {
-        const rootView = new RootView();
+        const rootView = new RootView({
+            model: new TodoModel()
+        });
         this.showView(rootView);
     }
 });

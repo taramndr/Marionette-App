@@ -4,17 +4,6 @@ import _ from 'underscore';
 import TodoView from './TodoView';
 import TodoModel from '../models/todo';
 
-// const TodoModel = Model.extend({
-//     defaults: {
-//         id: '',
-//         title: '',
-//         info: '',
-//     },
-//     initialize: function () {
-//         console.log('TodoModel has been initialized.');
-//     }
-// });
-
 const TodoCollection = Collection.extend({
     url: 'http://localhost:3000/todos',
     model: TodoModel,
