@@ -1,13 +1,18 @@
+body {
+    background-color: #ccc;
+    margin: 0;
+    padding: 0;
+}
+.hide{
+    display: none !important;
+}
+.show{
+    display: inline-block;
+}
 .bg-success{
     background-color: green;
 }
   
 .bg-error{
     background-color: red;
-}
-
-body {
-    background-color: #ccc;
-    margin: 0;
-    padding: 0;
 }
