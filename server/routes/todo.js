@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const uuid = require('uuid');
-const myTodos = require('../data/Todos');
+let myTodos = require('../data/Todos');
+
+const idFilter = req => todo => todo.id === req.params.id;
 
 router.get('/', function (req, res, next) {
     res.send('Index');
@@ -14,9 +16,10 @@ router.get('/todos', function (req, res, next) {
 
 // Get single Todo
 router.get('/todos/:id', function (req, res, next) {
-    const todoFound = myTodos.some(t => t.id === parseInt(req.params.id));
+    const todoFound = myTodos.some(idFilter(req));
+
     if (todoFound) {
-        res.json(myTodos.filter(t => t.id === parseInt(req.params.id)))
+        res.json(myTodos.filter(t => t.id === req.params.id))
     } else {
         res.status(400).json({ msg: 'Requested Todo not exist' })
     }
@@ -35,7 +38,19 @@ router.post('/todos', function (req, res, next) {
     }
 
     myTodos.push(newTodo);
-    res.json(myTodos);
+    res.json(newTodo);
+});
+
+// Delete single Todo
+router.delete('/todos/:id', function (req, res, next) {
+    const todoFound = myTodos.some(idFilter(req));
+
+    if (todoFound) {
+        myTodos = myTodos.filter(t => t.id !== req.params.id);
+        res.json({ msg: 'Todo deleted successfully' })
+    } else {
+        res.status(400).json({ msg: 'Requested Todo not exist' })
+    }
 });
 
 module.exports = router;

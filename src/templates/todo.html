@@ -1,8 +1,13 @@
 <div class="todo-card__container">
-    <div class="col s12">
-        <h2 class="todo-card__header"> <%= id %><%= title %></h2>
+    <div class="todo-card__info">
+        <div class="col">
+            <h2 class="todo-card__header"><%= id %> <%= title %></h2>
+        </div>
+        <div class="col">
+            <p><%= info %></p>
+        </div>
     </div>
-    <div class="col s12">
-        <p><%= info %></p>
+    <div class="todo-card__action">
+        <button class="todo-card__delete">delete</button>
     </div>
 </div>
