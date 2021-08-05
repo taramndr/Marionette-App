@@ -17,7 +17,7 @@ const RootView = View.extend({
     },
     events: {
         'click a': 'toogleMenu',
-        'click @ui.mainRegion': 'onPressBodyRoot',
+        'click @ui.mainRegion': 'onPressBody',
     },
     childViewEvents: {
         "render:todos": "reRenderView",
@@ -26,8 +26,10 @@ const RootView = View.extend({
         e.preventDefault();
         console.log('clicked menu')
     },
-    onPressBodyRoot() {
+    onPressBody() {
         // this.toggleExtraFormInput();
+        // this.$('.todo-add__form__info').addClass('hide');
+        // this.$('.todo-add__form__close').addClass('hide');
     },
     reRenderView() {
         console.log('reRenderTodos:: ')

@@ -10,30 +10,46 @@ const TodosView = CollectionView.extend({
     childViewContainer: '.todos-container',
     template: template,
     ui: {
-        todoInputTitle: '.todo-form__title',
-        todoInputInfo: '.todo-form__info',
-        todoFormClose: '.todo-form_close'
+        todoContainer: '.todos-container',
+        todoInputTitle: '.todo-add__form__title',
+        todoInputInfo: '.todo-add__form__info',
+        todoFormClose: '.todo-add__form__close'
     },
     events: {
+        'drop @ui.todoContainer': 'onDrop',
+        'dragover @ui.todoContainer': 'onDragOverAllowDrop',
+
         'focus @ui.todoInputTitle': 'onFocusInputTitle',
         'click @ui.todoFormClose': 'onCloseForm',
         'keydown @ui.todoInputTitle': 'onPressEnter',
         'keydown @ui.todoInputInfo': 'onPressEnter',
     },
     childViewEvents: {
-        "render:todo": "reRenderView",
+        'render:todo': 'reRenderView',
+    },
+    onDragOverAllowDrop(event) {
+        event.preventDefault();
+    },
+    onDrop(e) {
+        console.log('On Drop: ')
+        e.preventDefault();
+
+        var data = e.originalEvent.dataTransfer.getData('text');
+        var modelData = JSON.parse(data);
+
+        console.log('modelData: ', modelData)
     },
     reRenderView() {
         this.render();
     },
     onFocusInputTitle() {
-        this.$('.todo-form__info').removeClass('hide');
-        this.$('.todo-form_close').removeClass('hide');
+        this.$('.todo-add__form__info').removeClass('hide');
+        this.$('.todo-add__form__close').removeClass('hide');
     },
     onCloseForm(e) {
         e.preventDefault();
-        this.$('.todo-form__info').toggleClass('hide');
-        this.$('.todo-form_close').toggleClass('hide');
+        this.$('.todo-add__form__info').toggleClass('hide');
+        this.$('.todo-add__form__close').toggleClass('hide');
     },
     onPressEnter(e) {
         if (e.which === 13) {
@@ -42,8 +58,8 @@ const TodosView = CollectionView.extend({
     },
     addToDo() {
         // get form input values
-        let todoTitle = this.$('.todo-form__title').val();
-        let todoInfo = this.$('.todo-form__info').val();
+        let todoTitle = this.$('.todo-add__form__title').val();
+        let todoInfo = this.$('.todo-add__form__info').val();
 
         if (this.model) {
             this.model.set('title', todoTitle);
@@ -54,7 +70,7 @@ const TodosView = CollectionView.extend({
                     success: (res) => {
                         variables.todosCollection.push(this.model);
                         // Render to eradicate update
-                        this.trigger("render:todos");
+                        this.trigger('render:todos');
                     },
                     error: (error) => {
                         console.log('Error on new task addition', error)
@@ -63,8 +79,8 @@ const TodosView = CollectionView.extend({
         }
     },
     onRender() {
-        this.$('.todo-form__info').addClass('hide');
-        this.$('.todo-form_close').addClass('hide');
+        // this.$('.todo-add__form__info').addClass('hide');
+        // this.$('.todo-add__form__close').addClass('hide');
     }
 });
 

@@ -7,19 +7,34 @@ const TodoView = View.extend({
     //tagName: 'li',
     template: todoTemplate,
     ui: {
-        todoCard: '.todo-card__info',
+        todoCard: '.todo-card__container',
+        todoCardInfo: '.todo-card__info',
         todoCardDelete: '.todo-card__delete',
         todoInputTitle: '.todo-form__update__title',
         todoInputInfo: '.todo-form__update__info',
     },
     events: {
-        'click @ui.todoCard': 'onCardClick',
+        'dragstart @ui.todoCard': 'onDragStart',
+        'click @ui.todoCardInfo': 'showUpdateInputFields',
         'click @ui.todoCardDelete': 'onCardDelete',
         'keydown @ui.todoInputTitle': 'onPressEnter',
         'keydown @ui.todoInputInfo': 'onPressEnter',
     },
-    onCardClick() {
-        // update card
+    onDragStart(event) {
+        let thisModel = this.model.toJSON();
+        event.originalEvent.dataTransfer.effectAllowed = "move";
+
+        event.originalEvent.dataTransfer.setData(
+            'text',
+            JSON.stringify(thisModel)
+        );
+        console.log(
+            'dataTransfer',
+            event.originalEvent.dataTransfer.getData("text")
+        );
+    },
+    showUpdateInputFields() {
+        // show update input
         console.log('onCardAction', this.model.get('title'))
         this.$('.todo-card__info').toggleClass('hide');
         this.$('.todo-card__form').toggleClass('hide');
@@ -76,9 +91,9 @@ const TodoView = View.extend({
             info: this.model.get('info')
         }
     },
-    onRender() {
-        this.$('.todo-card__form').toggleClass('hide');
-    }
+    // onRender() {
+    //     this.$('.todo-card__form').toggleClass('hide');
+    // }
 });
 
 export default TodoView;

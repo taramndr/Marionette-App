@@ -55,6 +55,9 @@ router.delete('/todos/:id', function (req, res, next) {
 
 // Update Todo
 router.put('/todos/:id', function (req, res, next) {
+
+    console.log('test test update route: ')
+
     const todoFound = myTodos.some(idFilter(req));
 
     if (todoFound) {
