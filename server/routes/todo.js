@@ -53,4 +53,22 @@ router.delete('/todos/:id', function (req, res, next) {
     }
 });
 
+// Update Todo
+router.put('/todos/:id', function (req, res, next) {
+    const todoFound = myTodos.some(idFilter(req));
+
+    if (todoFound) {
+        myTodos.map((todo, i) => {
+            if (idFilter(req)(todo)) {
+
+                const updTodo = { ...todo, ...req.body };
+                myTodos[i] = updTodo
+                res.json({ msg: 'Todo updated', todos: myTodos });
+            }
+        });
+    } else {
+        res.status(400).json({ msg: `No member with the id of ${req.params.id}` });
+    }
+});
+
 module.exports = router;

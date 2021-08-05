@@ -1,11 +1,15 @@
 <div class="todo-card__container">
     <div class="todo-card__info">
         <div class="col">
-            <h2 class="todo-card__header"><%= id %> <%= title %></h2>
+            <h2 class="todo-card__header"> <%= title %></h2>
         </div>
         <div class="col">
             <p><%= info %></p>
         </div>
+    </div>
+    <div class="todo-card__form">
+        <input type="text" name="title" class="todo-form__update__title" value="<%= title %>">
+        <textarea name="info" placeholder="info" class="todo-form__update__info"><%= info %></textarea>
     </div>
     <div class="todo-card__action">
         <button class="todo-card__delete">delete</button>

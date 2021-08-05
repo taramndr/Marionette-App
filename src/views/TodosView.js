@@ -20,6 +20,12 @@ const TodosView = CollectionView.extend({
         'keydown @ui.todoInputTitle': 'onPressEnter',
         'keydown @ui.todoInputInfo': 'onPressEnter',
     },
+    childViewEvents: {
+        "render:todo": "reRenderView",
+    },
+    reRenderView() {
+        this.render();
+    },
     onFocusInputTitle() {
         this.$('.todo-form__info').removeClass('hide');
         this.$('.todo-form_close').removeClass('hide');

@@ -8,15 +8,21 @@ const TodoView = View.extend({
     template: todoTemplate,
     ui: {
         todoCard: '.todo-card__info',
-        todoCardDelete: '.todo-card__delete'
+        todoCardDelete: '.todo-card__delete',
+        todoInputTitle: '.todo-form__update__title',
+        todoInputInfo: '.todo-form__update__info',
     },
     events: {
         'click @ui.todoCard': 'onCardClick',
-        'click @ui.todoCardDelete': 'onCardDelete'
+        'click @ui.todoCardDelete': 'onCardDelete',
+        'keydown @ui.todoInputTitle': 'onPressEnter',
+        'keydown @ui.todoInputInfo': 'onPressEnter',
     },
     onCardClick() {
         // update card
-        console.log('onCardAction')
+        console.log('onCardAction', this.model.get('title'))
+        this.$('.todo-card__info').toggleClass('hide');
+        this.$('.todo-card__form').toggleClass('hide');
     },
     onCardDelete() {
         this.model.destroy({
@@ -29,6 +35,40 @@ const TodoView = View.extend({
             },
         });
     },
+    onPressEnter(e) {
+        if (e.which === 13) {
+            this.updateToDo();
+        }
+    },
+    updateToDo() {
+        // get update form input values
+        let todoTitle = this.$('.todo-form__update__title').val();
+        let todoInfo = this.$('.todo-form__update__info').val();
+
+        let currentModelTodoId = this.model.get('id');
+        this.model.set('title', todoTitle);
+        this.model.set('info', todoInfo);
+
+        this.model.save({},
+            {
+                success: (res) => {
+                    // 
+                    console.log('On update success:', res)
+                    variables.todosCollection
+                        .findWhere({ id: currentModelTodoId })
+                        .set('title', todoTitle);
+                    variables.todosCollection
+                        .findWhere({ id: currentModelTodoId })
+                        .set('info', todoInfo);
+
+                    this.trigger('render:todo');
+                },
+                error: (error) => {
+                    console.log('Error on update task:', error)
+                }
+            })
+
+    },
     templateContext() {
         return {
             id: this.model.get('id'),
@@ -36,6 +76,9 @@ const TodoView = View.extend({
             info: this.model.get('info')
         }
     },
+    onRender() {
+        this.$('.todo-card__form').toggleClass('hide');
+    }
 });
 
 export default TodoView;

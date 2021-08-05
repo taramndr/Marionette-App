@@ -9,7 +9,7 @@ const TodoModel = Model.extend({
         }
     },
     initialize: function () {
-        console.log('TodoModel has been initialized.');
+        // console.log('TodoModel has been initialized.');
     }
 });
 
