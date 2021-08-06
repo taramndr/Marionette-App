@@ -36,6 +36,7 @@ const TodoView = View.extend({
     showUpdateInputFields() {
         // show update input
         console.log('onCardAction', this.model.get('title'))
+        this.$('.todo-form__update__info').focus();
         this.$('.todo-card__info').toggleClass('hide');
         this.$('.todo-card__form').toggleClass('hide');
     },
