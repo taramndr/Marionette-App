@@ -9,9 +9,16 @@ router.get('/', function (req, res, next) {
     res.send('Index');
 });
 
-// Get All Todo
+// Get All Todo List
 router.get('/todos', function (req, res, next) {
-    res.json(myTodos);
+    const { search } = req.query;
+    let todoList = myTodos;
+
+    if (search) {
+        const matches = myTodos.filter(t => t.title.includes(search) || t.info.includes(search));
+        return res.json(matches);
+    }
+    res.json(todoList);
 });
 
 // Get single Todo

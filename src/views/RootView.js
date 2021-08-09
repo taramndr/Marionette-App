@@ -15,10 +15,12 @@ const RootView = View.extend({
     ui: {
         mainRegion: '.main-region > div',
         // header: '.header',
+        searchFormInput: '.header-search__input'
     },
     events: {
         'click a': 'toogleMenu',
         'click @ui.mainRegion': 'onPressMainBody',
+        'keydown @ui.searchFormInput': 'onSearchFormSubmit',
     },
     childViewEvents: {
         "render:todos": "reRenderView",
@@ -55,6 +57,14 @@ const RootView = View.extend({
                         }
                     })
             }
+        }
+    },
+    onSearchFormSubmit(e) {
+        if (e.which === 13) {
+            const searchedText = this.$('.header-search__input').val();
+            variables.todosCollection.fetch({
+                data: { search: searchedText }
+            });
         }
     },
     reRenderView() {
