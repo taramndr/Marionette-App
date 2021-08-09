@@ -59,6 +59,11 @@ const RootView = View.extend({
                             console.log('Error on new task addition', error)
                         }
                     })
+            } else {
+                this.$('.todo-add__form__title').val('');
+                this.$('.todo-add__form__info').val('');
+                this.$('.todo-add__form__disabled__input__wrap').removeClass('hide');
+                this.$('.todo-add__form__container').addClass('hide');
             }
         }
     },
