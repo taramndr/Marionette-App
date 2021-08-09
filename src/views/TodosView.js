@@ -11,15 +11,19 @@ const TodosView = CollectionView.extend({
     template: template,
     ui: {
         todoContainer: '.todos-container',
+        todoDisabledInputWrap: '.todo-add__form__disabled__input__wrap',
         todoInputTitle: '.todo-add__form__title',
         todoInputInfo: '.todo-add__form__info',
-        todoFormClose: '.todo-add__form__close'
+        todoFormClose: '.todo-add__form__close',
     },
     events: {
         'drop @ui.todoContainer': 'onDrop',
         'dragover @ui.todoContainer': 'onDragOverAllowDrop',
+        //'drop': 'onDrop',
+        //'dragover': 'onDragOverAllowDrop',
 
-        'focus @ui.todoInputTitle': 'onFocusInputTitle',
+        'click @ui.todoDisabledInputWrap': 'showAddTodoForm',
+        // 'focus @ui.todoInputTitle': 'onFocusInputTitle',
         'click @ui.todoFormClose': 'onCloseForm',
         'keydown @ui.todoInputTitle': 'onPressEnter',
         'keydown @ui.todoInputInfo': 'onPressEnter',
@@ -31,25 +35,55 @@ const TodosView = CollectionView.extend({
         event.preventDefault();
     },
     onDrop(e) {
-        console.log('On Drop: ')
         e.preventDefault();
 
         var data = e.originalEvent.dataTransfer.getData('text');
-        var modelData = JSON.parse(data);
+        //var modelData = JSON.parse(data);
 
-        console.log('modelData: ', modelData)
+        console.log('modelID: ', data)
+        // this.trigger("update:sort");
+        console.log('whole model --', this.model)
+
+        // let draggedTodoModel = variables.todosCollection.findWhere({
+        //     id: data,
+        // });
+        // console.log('draggedTodoModel: ', draggedTodoModel)
+        // console.log('whole collection --', this.collection)
+
+        // this.collection.remove(model);
+
+        // this.collection.each(function(model, index){
+        //   var ordinal = index;
+        //   if(index >= position){
+        //     ordinal+=1;
+        //   }
+        //   model.set("ordinal", ordinal);
+        // });
+
+        // model.set("ordinal", position);
+        // this.collection.add(model, {at: position});
+        // this.render();
+
     },
     reRenderView() {
         this.render();
     },
-    onFocusInputTitle() {
-        this.$('.todo-add__form__info').removeClass('hide');
-        this.$('.todo-add__form__close').removeClass('hide');
+    showAddTodoForm() {
+        this.$('.todo-add__form__disabled__input__wrap').toggleClass('hide');
+        this.$('.todo-add__form__container').toggleClass('hide');
+        this.$('.todo-add__form__info').focus();
     },
+    // onFocusInputTitle() {
+    // this.$('.todo-add__form__info').removeClass('hide');
+    // this.$('.todo-add__form__close').removeClass('hide');
+    // },
     onCloseForm(e) {
         e.preventDefault();
-        this.$('.todo-add__form__info').toggleClass('hide');
-        this.$('.todo-add__form__close').toggleClass('hide');
+        this.$('.todo-add__form__disabled__input__wrap').toggleClass('hide');
+        this.$('.todo-add__form__container').toggleClass('hide');
+
+        // this.$('.todo-add__form__info').toggleClass('hide');
+        // this.$('.todo-add__form__close').toggleClass('hide');
     },
     onPressEnter(e) {
         if (e.which === 13) {
@@ -57,30 +91,39 @@ const TodosView = CollectionView.extend({
         }
     },
     addToDo() {
+        console.log('add todo ', this.model);
+
         // get form input values
         let todoTitle = this.$('.todo-add__form__title').val();
         let todoInfo = this.$('.todo-add__form__info').val();
 
+        console.log('todoTitle: ', todoTitle);
+        console.log('todoInfo: ', todoInfo);
+
+
+
         if (this.model) {
             this.model.set('title', todoTitle);
             this.model.set('info', todoInfo);
-
-            this.model.save({}, // { type: 'POST' },
-                {
-                    success: (res) => {
-                        variables.todosCollection.push(this.model);
-                        // Render to eradicate update
-                        this.trigger('render:todos');
-                    },
-                    error: (error) => {
-                        console.log('Error on new task addition', error)
-                    }
-                })
+            if (todoTitle && todoInfo) {
+                this.model.save({}, // { type: 'POST' },
+                    {
+                        success: (res) => {
+                            variables.todosCollection.push(this.model);
+                            // Render to eradicate update
+                            this.trigger('render:todos');
+                        },
+                        error: (error) => {
+                            console.log('Error on new task addition', error)
+                        }
+                    })
+            }
         }
     },
     onRender() {
         // this.$('.todo-add__form__info').addClass('hide');
         // this.$('.todo-add__form__close').addClass('hide');
+
     }
 });
 

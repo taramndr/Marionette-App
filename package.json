@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx webpack serve",
     "start:server": "node server/app.js",
-    "watch:sass": "node-sass --watch public/scss/main.scss -o public/css"
+    "build:sass": "node-sass --output-style compressed public/scss/main.scss -o public/css",
+    "watch:sass": "node-sass --watch --output-style compressed public/scss/main.scss -o public/css"
   },
   "author": "",
   "license": "ISC",

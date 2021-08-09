@@ -26,21 +26,33 @@ const RootView = View.extend({
         e.preventDefault();
         console.log('clicked menu')
     },
-    onPressBody() {
-        // this.toggleExtraFormInput();
-        // this.$('.todo-add__form__info').addClass('hide');
-        // this.$('.todo-add__form__close').addClass('hide');
+    onPressBody(e) {
+        console.log('onPressBody -- ', e.target);
+        if (e.target.nodeName === 'DIV') {
+            // add form
+            this.$('.todo-add__form__disabled__input__wrap').removeClass('hide');
+            this.$('.todo-add__form__container').addClass('hide');
+            const todoView = new TodosView(
+                {
+                    collection: variables.todosCollection,
+                    model: new TodoModel(),
+                }
+            );
+            todoView.addToDo();
+
+            // update form
+            this.$('.todo-card__form').addClass('hide');
+            this.$('.todo-card__info').removeClass('hide');
+        }
     },
     reRenderView() {
-        console.log('reRenderTodos:: ')
+        console.log('reRenderTodos: ')
         this.render();
     },
     onRender() {
-        console.log("Root view rendered");
-
         this.showChildView('main', new TodosView({
             collection: variables.todosCollection,
-            model: new TodoModel()
+            model: new TodoModel(),
         }));
     },
 });

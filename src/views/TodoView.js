@@ -15,27 +15,29 @@ const TodoView = View.extend({
     },
     events: {
         'dragstart @ui.todoCard': 'onDragStart',
+
+        // 'click @ui.todoCard': 'showUpdateInputFields',
         'click @ui.todoCardInfo': 'showUpdateInputFields',
         'click @ui.todoCardDelete': 'onCardDelete',
         'keydown @ui.todoInputTitle': 'onPressEnter',
         'keydown @ui.todoInputInfo': 'onPressEnter',
     },
     onDragStart(event) {
-        let thisModel = this.model.toJSON();
-        event.originalEvent.dataTransfer.effectAllowed = "move";
+        console.log('event: ', event)
+        event.originalEvent.dataTransfer.effectAllowed = 'drag';
 
         event.originalEvent.dataTransfer.setData(
             'text',
-            JSON.stringify(thisModel)
+            this.model.get('id')
         );
         console.log(
             'dataTransfer',
-            event.originalEvent.dataTransfer.getData("text")
+            event.originalEvent.dataTransfer.getData('text')
         );
     },
     showUpdateInputFields() {
+        console.log('show update form: ')
         // show update input
-        console.log('onCardAction', this.model.get('title'))
         this.$('.todo-form__update__info').focus();
         this.$('.todo-card__info').toggleClass('hide');
         this.$('.todo-card__form').toggleClass('hide');

@@ -33,7 +33,7 @@ body {
     color: $text-dark;
 }
 
-.todo-add__form__container {
+.todo-add__form__disabled__input__wrap, .todo-add__form__container {
     position: relative;
     width: 600px;
     margin: 32px auto 50px auto;
@@ -43,7 +43,7 @@ body {
     box-shadow: 0 1px 7px rgb(128, 128, 128);
 }
 
-.todo-add__form__container input {
+.todo-add__form__disabled__input__wrap input, .todo-add__form__container input {
     width: 100%;
     border: none;
     padding: 4px 10px;
