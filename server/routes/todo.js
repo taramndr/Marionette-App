@@ -31,7 +31,8 @@ router.post('/todos', function (req, res, next) {
     const newTodo = {
         id: uuid.v4(),
         title,
-        info
+        info,
+        modifiedOn: new Date(),
     }
     if (!newTodo.title || !newTodo.info) {
         return res.status(400).json({ msg: 'Please include a title and info' });
@@ -56,10 +57,12 @@ router.delete('/todos/:id', function (req, res, next) {
 // Update Todo
 router.put('/todos/:id', function (req, res, next) {
     const todoFound = myTodos.some(idFilter(req));
+    const bodyParams = req.body;
+    const updatedBodyParams = { ...bodyParams, modifiedOn: new Date() };
 
     if (todoFound) {
         let todoIndex = myTodos.findIndex((obj => obj.id === req.body.id));
-        myTodos[todoIndex] = req.body;
+        myTodos[todoIndex] = updatedBodyParams; // req.body;
 
         res.json({ msg: 'Todo updated successfully' })
     } else {

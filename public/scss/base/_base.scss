@@ -160,15 +160,25 @@ body {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 55%;
+    width: 50%;
     border-radius: 7px;
+}
+.todo-form__update__modifiedOn{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: right;
+}
+.todo-form__update__modifiedOn_text {
+    font-size: 0.8rem;
+    padding: 5px 0px;
 }
 
 .close {
-    color: #aaaaaa;
     float: right;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px 20px 0px 20px;
+    color: $text-extra-dark;
 }
 
 .close:hover,

@@ -9,13 +9,16 @@
     </div>
     <div class="todo-card__form hide">
         <div class="todo-modal__content">
-            <span class="close">&times;</span>
+            
             <input type="text" class="todo-form__update__title" value="<%= title %>">
             <textarea placeholder="Info" class="todo-form__update__info"><%= info %></textarea>
+            <div class="todo-form__update__modifiedOn">
+                <span class="todo-form__update__modifiedOn_text">Edited <%= modifiedOn %></span>
+                <span class="close">Close</span>
+            </div>
         </div>
     </div>
     <div class="todo-card__action">
-        <button class="todo-card__delete"><i class="fas fa-trash"></i></button>
-       
+        <button class="todo-card__delete"><i class="fas fa-trash"></i></button>  
     </div>
 </div>

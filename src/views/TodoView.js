@@ -2,6 +2,7 @@ import { View } from 'backbone.marionette';
 import _ from 'underscore';
 import todoTemplate from '../templates/todo.html';
 import variables from '../services/variables';
+import { formatDate } from '../services/dateTime';
 
 const TodoView = View.extend({
     //tagName: 'li',
@@ -93,6 +94,9 @@ const TodoView = View.extend({
                     variables.todosCollection
                         .findWhere({ id: currentModelTodoId })
                         .set('info', todoInfo);
+                    variables.todosCollection
+                        .findWhere({ id: currentModelTodoId })
+                        .set('modifiedOn', new Date());
 
                     this.trigger('render:todo');
                 },
@@ -103,15 +107,16 @@ const TodoView = View.extend({
 
     },
     templateContext() {
+        const modifiedDateString = this.model.get('modifiedOn');
+        const modifiedDate = formatDate(modifiedDateString);
+
         return {
             id: this.model.get('id'),
             title: this.model.get('title'),
-            info: this.model.get('info')
+            info: this.model.get('info'),
+            modifiedOn: modifiedDate,
         }
     },
-    // onRender() {
-    //     this.$('.todo-card__form').toggleClass('hide');
-    // }
 });
 
 export default TodoView;

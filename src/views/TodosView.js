@@ -83,7 +83,7 @@ const TodosView = CollectionView.extend({
         }
     },
     addToDo(e) {
-        // e.preventDefault();
+        // Add new ToDo
         console.log('add todo ', this.model);
 
         // get form input values
@@ -96,6 +96,8 @@ const TodosView = CollectionView.extend({
         if (this.model) {
             this.model.set('title', todoTitle);
             this.model.set('info', todoInfo);
+            this.model.set('modifiedOn', new Date());
+
             if (todoTitle && todoInfo) {
                 this.model.save({},
                     {
