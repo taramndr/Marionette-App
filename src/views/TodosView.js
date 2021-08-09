@@ -84,14 +84,9 @@ const TodosView = CollectionView.extend({
     },
     addToDo(e) {
         // Add new ToDo
-        console.log('add todo ', this.model);
-
         // get form input values
         let todoTitle = this.$('.todo-add__form__title').val();
         let todoInfo = this.$('.todo-add__form__info').val();
-
-        console.log('todoTitle: ', todoTitle);
-        console.log('todoInfo: ', todoInfo);
 
         if (this.model) {
             this.model.set('title', todoTitle);

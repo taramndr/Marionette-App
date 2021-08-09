@@ -28,20 +28,34 @@ const RootView = View.extend({
         console.log('clicked menu')
     },
     onPressMainBody(e) {
-        //if (e.target.nodeName === 'DIV') {
-        /* if (e.target === e.currentTarget) {
-            // proceed add todo operation
-            this.$('.todo-add__form__disabled__input__wrap').removeClass('hide');
-            this.$('.todo-add__form__container').addClass('hide');
-            const todosView = new TodosView(
-                {
-                    collection: variables.todosCollection,
-                    model: new TodoModel(),
-                }
-            );
+        // Add new task on clicking on other body elements
 
-            todosView.addToDo();
-        } */
+        //if (e.target.nodeName === 'DIV') {
+        if (e.target === e.currentTarget) {
+            // Get add form input values
+            let todoTitle = this.$('.todo-add__form__title').val();
+            let todoInfo = this.$('.todo-add__form__info').val();
+            const toDoModel = new TodoModel();
+
+            if (todoTitle && todoInfo) {
+                console.log('Add new task on clicking on other body elements')
+
+                toDoModel.set('title', todoTitle);
+                toDoModel.set('info', todoInfo);
+                toDoModel.set('modifiedOn', new Date());
+                toDoModel.save({},
+                    {
+                        success: (res) => {
+                            variables.todosCollection.push(toDoModel);
+                            // Render to eradicate update
+                            this.render();
+                        },
+                        error: (error) => {
+                            console.log('Error on new task addition', error)
+                        }
+                    })
+            }
+        }
     },
     reRenderView() {
         console.log('reRenderTodos: ')
