@@ -42,7 +42,7 @@ const TodosView = CollectionView.extend({
 
         console.log('modelID: ', data)
         // this.trigger("update:sort");
-        console.log('whole model --', this.model)
+        console.log('model:', this.model)
 
         // let draggedTodoModel = variables.todosCollection.findWhere({
         //     id: data,

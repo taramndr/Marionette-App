@@ -38,7 +38,7 @@ router.post('/todos', function (req, res, next) {
     }
 
     myTodos.push(newTodo);
-    res.json(newTodo);
+    res.json({ msg: 'Todo added successfully' });
 });
 
 // Delete single Todo
