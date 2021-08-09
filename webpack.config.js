@@ -16,6 +16,10 @@ module.exports = {
             {
                 test: /\.(js)$/,
                 exclude: /node_modules/
+            },
+            {
+                test: /\.html$/,
+                loader: 'underscore-template-loader'
             }
         ]
     },

@@ -1,0 +1,18 @@
+<div class="todo-card__container" draggable="true">
+    <div class="todo-card__info">
+        <div class="col">
+            <h2 class="todo-card__header"> <%= title %></h2>
+        </div>
+        <div class="col">
+            <p><%= info %></p>
+        </div>
+    </div>
+    <div class="todo-card__form hide">
+        <input type="text" class="todo-form__update__title" value="<%= title %>">
+        <textarea placeholder="Info" class="todo-form__update__info" autofocus><%= info %></textarea>
+    </div>
+    <div class="todo-card__action">
+        <button class="todo-card__delete"><i class="fas fa-trash"></i></button>
+       
+    </div>
+</div>
