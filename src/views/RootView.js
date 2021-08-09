@@ -13,11 +13,12 @@ const RootView = View.extend({
     },
     template: template,
     ui: {
-        mainRegion: '.main-region',
+        mainRegion: '.main-region > div',
+        // header: '.header',
     },
     events: {
         'click a': 'toogleMenu',
-        'click @ui.mainRegion': 'onPressBody',
+        'click @ui.mainRegion': 'onPressMainBody',
     },
     childViewEvents: {
         "render:todos": "reRenderView",
@@ -26,24 +27,21 @@ const RootView = View.extend({
         e.preventDefault();
         console.log('clicked menu')
     },
-    onPressBody(e) {
-        console.log('onPressBody -- ', e.target);
-        if (e.target.nodeName === 'DIV') {
-            // add form
+    onPressMainBody(e) {
+        //if (e.target.nodeName === 'DIV') {
+        /* if (e.target === e.currentTarget) {
+            // proceed add todo operation
             this.$('.todo-add__form__disabled__input__wrap').removeClass('hide');
             this.$('.todo-add__form__container').addClass('hide');
-            const todoView = new TodosView(
+            const todosView = new TodosView(
                 {
                     collection: variables.todosCollection,
                     model: new TodoModel(),
                 }
             );
-            todoView.addToDo();
 
-            // update form
-            this.$('.todo-card__form').addClass('hide');
-            this.$('.todo-card__info').removeClass('hide');
-        }
+            todosView.addToDo();
+        } */
     },
     reRenderView() {
         console.log('reRenderTodos: ')

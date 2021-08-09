@@ -8,8 +8,11 @@
         </div>
     </div>
     <div class="todo-card__form hide">
-        <input type="text" class="todo-form__update__title" value="<%= title %>">
-        <textarea placeholder="Info" class="todo-form__update__info" autofocus><%= info %></textarea>
+        <div class="todo-modal__content">
+            <span class="close">&times;</span>
+            <input type="text" class="todo-form__update__title" value="<%= title %>">
+            <textarea placeholder="Info" class="todo-form__update__info"><%= info %></textarea>
+        </div>
     </div>
     <div class="todo-card__action">
         <button class="todo-card__delete"><i class="fas fa-trash"></i></button>

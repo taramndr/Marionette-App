@@ -12,6 +12,8 @@ const TodoView = View.extend({
         todoCardDelete: '.todo-card__delete',
         todoInputTitle: '.todo-form__update__title',
         todoInputInfo: '.todo-form__update__info',
+        modalCloseBtn: '.close',
+        modal: '.todo-card__form:not(.todo-modal__content)'
     },
     events: {
         'dragstart @ui.todoCard': 'onDragStart',
@@ -19,8 +21,11 @@ const TodoView = View.extend({
         // 'click @ui.todoCard': 'showUpdateInputFields',
         'click @ui.todoCardInfo': 'showUpdateInputFields',
         'click @ui.todoCardDelete': 'onCardDelete',
-        'keydown @ui.todoInputTitle': 'onPressEnter',
-        'keydown @ui.todoInputInfo': 'onPressEnter',
+        'click @ui.modalCloseBtn': 'onPressCloseModal',
+        'click @ui.modal': 'onClickModal',
+        // 'keydown @ui.todoInputTitle': 'onPressEnter',
+        // 'keydown @ui.todoInputInfo': 'onPressEnter',
+
     },
     onDragStart(event) {
         console.log('event: ', event)
@@ -35,11 +40,21 @@ const TodoView = View.extend({
             event.originalEvent.dataTransfer.getData('text')
         );
     },
+    onClickModal(e) {
+        // e.stopPropagation();
+        if (e.target === e.currentTarget) {
+            // alert('clicked outside modal')
+            console.log('Update Form: ')
+            this.updateToDo();
+        }
+    },
+    onPressCloseModal() {
+        this.$('.todo-card__form').toggleClass('hide');
+    },
     showUpdateInputFields() {
         console.log('show update form: ')
         // show update input
         this.$('.todo-form__update__info').focus();
-        this.$('.todo-card__info').toggleClass('hide');
         this.$('.todo-card__form').toggleClass('hide');
     },
     onCardDelete() {
@@ -53,11 +68,11 @@ const TodoView = View.extend({
             },
         });
     },
-    onPressEnter(e) {
-        if (e.which === 13) {
-            this.updateToDo();
-        }
-    },
+    // onPressEnter(e) {
+    //     if (e.which === 13) {
+    //         this.updateToDo();
+    //     }
+    // },
     updateToDo() {
         // get update form input values
         let todoTitle = this.$('.todo-form__update__title').val();
