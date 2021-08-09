@@ -33,14 +33,21 @@ body {
     width: 600px;
     text-align: center;
     margin: 5px auto;
+    border-radius: 7px;
+    border: 1px solid $border-light;
 }
 
 .header-search__input {
-    width: 100%;
+    width: 90%;
     padding: 12px 10px;
     outline: none;
-    border-radius: 7px;
-    border: 1px solid $border-light;
+    border: none;
+}
+
+.header-search__input__reset {
+    color: #5f6368;
+    font-size: 1rem;
+    padding: 5px;
 }
 
 .button-collapse i {

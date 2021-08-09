@@ -15,12 +15,15 @@ const RootView = View.extend({
     ui: {
         mainRegion: '.main-region > div',
         // header: '.header',
-        searchFormInput: '.header-search__input'
+        searchFormInput: '.header-search__input',
+        searchResetBtn: '.header-search__input__reset',
     },
     events: {
         'click a': 'toogleMenu',
         'click @ui.mainRegion': 'onPressMainBody',
+        'change @ui.searchFormInput': 'onSearchInputChange',
         'keydown @ui.searchFormInput': 'onSearchFormSubmit',
+        'click @ui.searchResetBtn': 'onPressSearchReset'
     },
     childViewEvents: {
         "render:todos": "reRenderView",
@@ -59,13 +62,23 @@ const RootView = View.extend({
             }
         }
     },
+    onPressSearchReset() {
+        this.$('.header-search__input').val('');
+        this.searchTodos();
+    },
+    onSearchInputChange() {
+        this.searchTodos();
+    },
     onSearchFormSubmit(e) {
         if (e.which === 13) {
-            const searchedText = this.$('.header-search__input').val();
-            variables.todosCollection.fetch({
-                data: { search: searchedText }
-            });
+            this.searchTodos();
         }
+    },
+    searchTodos() {
+        const searchedText = this.$('.header-search__input').val();
+        variables.todosCollection.fetch({
+            data: { search: searchedText }
+        });
     },
     reRenderView() {
         console.log('reRenderTodos: ')
