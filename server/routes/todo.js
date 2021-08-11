@@ -40,6 +40,7 @@ router.post('/todos', function (req, res, next) {
         title,
         info,
         modifiedOn: new Date(),
+        ordinal: myTodos.length
     }
     if (!newTodo.title || !newTodo.info) {
         return res.status(400).json({ msg: 'Please include a title and info' });

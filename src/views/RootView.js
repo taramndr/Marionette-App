@@ -19,7 +19,7 @@ const RootView = View.extend({
         searchResetBtn: '.header-search__input__reset',
     },
     events: {
-        'click a': 'toogleMenu',
+        'click a': 'onLinkClick',
         'click @ui.mainRegion': 'onPressMainBody',
         'change @ui.searchFormInput': 'onSearchInputChange',
         'keydown @ui.searchFormInput': 'onSearchFormSubmit',
@@ -28,9 +28,8 @@ const RootView = View.extend({
     childViewEvents: {
         "render:todos": "reRenderView",
     },
-    toogleMenu(e) {
+    onLinkClick(e) {
         e.preventDefault();
-        console.log('clicked menu')
     },
     onPressMainBody(e) {
         // Add new task on clicking on other body elements
@@ -52,6 +51,8 @@ const RootView = View.extend({
                     {
                         success: (res) => {
                             variables.todosCollection.push(toDoModel);
+                            variables.todosCollection.fetch();
+
                             // Render to eradicate update
                             this.render();
                         },
@@ -86,7 +87,8 @@ const RootView = View.extend({
         });
     },
     reRenderView() {
-        console.log('reRenderTodos: ')
+        variables.todosCollection.fetch();
+        // this.trigger('sync');
         this.render();
     },
     onRender() {

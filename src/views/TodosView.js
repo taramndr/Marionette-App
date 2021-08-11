@@ -16,6 +16,7 @@ const TodosView = CollectionView.extend({
         todoInputInfo: '.todo-add__form__info',
         todoFormClose: '.todo-add__form__close',
         todoFormAddTodo: '.todo-add__form__add__todo',
+        todoFormColorPaletteBtn: '.todo-add__show__color__palette'
     },
     events: {
         'drop @ui.todoContainer': 'onDrop',
@@ -26,6 +27,8 @@ const TodosView = CollectionView.extend({
         'click @ui.todoFormAddTodo': 'addToDo',
         'keydown @ui.todoInputTitle': 'onPressEnter',
         // 'keydown @ui.todoInputInfo': 'onPressEnter',
+        'mouseover @ui.todoFormColorPaletteBtn': 'toggleColorPaletteBox',
+        'mouseout @ui.todoFormColorPaletteBtn': 'toggleColorPaletteBox',
     },
     childViewEvents: {
         'render:todo': 'reRenderView',
@@ -37,10 +40,8 @@ const TodosView = CollectionView.extend({
         e.preventDefault();
 
         var data = e.originalEvent.dataTransfer.getData('text');
-        //var modelData = JSON.parse(data);
 
         console.log('modelID: ', data)
-        // this.trigger("update:sort");
         console.log('model:', this.model)
 
         // let draggedTodoModel = variables.todosCollection.findWhere({
@@ -66,6 +67,9 @@ const TodosView = CollectionView.extend({
     },
     reRenderView() {
         this.render();
+    },
+    toggleColorPaletteBox() {
+        console.log('hover: ')
     },
     showAddTodoForm() {
         this.$('.todo-add__form__disabled__input__wrap').toggleClass('hide');
@@ -98,8 +102,10 @@ const TodosView = CollectionView.extend({
                     {
                         success: (res) => {
                             variables.todosCollection.push(this.model);
+
                             // Render to eradicate update
                             this.trigger('render:todos');
+
                         },
                         error: (error) => {
                             console.log('Error on new task addition', error)

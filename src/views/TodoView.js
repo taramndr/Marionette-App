@@ -115,6 +115,7 @@ const TodoView = View.extend({
             title: this.model.get('title'),
             info: this.model.get('info'),
             modifiedOn: modifiedDate,
+            ordinal: this.model.get('ordinal'),
         }
     },
 });
