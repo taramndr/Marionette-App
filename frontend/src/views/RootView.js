@@ -1,5 +1,4 @@
 import { View } from 'backbone.marionette';
-import _ from 'underscore';
 
 import template from '../templates/main.html';
 import TodosView from './TodosView';
@@ -7,11 +6,13 @@ import variables from '../services/variables';
 import TodoModel from '../models/todo';
 
 const RootView = View.extend({
-    urlRoot: 'http://localhost:3000/todos',
+    // urlRoot: 'http://localhost:3000/todos',
+    tagName: 'main',
+    className: 'main-region-container',
     regions: {
         main: '.main-region',
     },
-    template: template,
+    template,
     ui: {
         mainRegion: '.main-region > div',
         // header: '.header',
@@ -20,7 +21,12 @@ const RootView = View.extend({
     },
     events: {
         'click a': 'onLinkClick',
+
         'click @ui.mainRegion': 'onPressMainBody',
+        'click .header': 'onPressMainBody',
+        'click .footer': 'onPressMainBody',
+        'click .todos-container': 'onPressMainBody',
+
         'change @ui.searchFormInput': 'onSearchInputChange',
         'keydown @ui.searchFormInput': 'onSearchFormSubmit',
         'click @ui.searchResetBtn': 'onPressSearchReset'

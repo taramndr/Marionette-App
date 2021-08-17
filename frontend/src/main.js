@@ -14,14 +14,14 @@ const App = Application.extend({
         //
     },
     onStart(app, options) {
-        const rootView = new RootView({});
+        const rootView = new RootView();
         this.showView(rootView);
     }
 });
 
 const app = new App();
 
-// app.start({});
+// app.start();
 variables.todosCollection.fetch({
     success: () => {
         app.start();

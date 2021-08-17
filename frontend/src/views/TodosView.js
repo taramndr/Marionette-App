@@ -1,11 +1,10 @@
 import { CollectionView } from 'backbone.marionette';
-import _ from 'underscore';
 import TodoView from './TodoView';
 import template from '../templates/todos.html';
 import variables from '../services/variables';
 
 const TodosView = CollectionView.extend({
-    // tagName: 'ul',
+    tagName: 'div', //'ul'
     childView: TodoView,
     childViewContainer: '.todos-container',
     template: template,

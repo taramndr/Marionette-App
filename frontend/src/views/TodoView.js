@@ -1,11 +1,17 @@
 import { View } from 'backbone.marionette';
-import _ from 'underscore';
 import todoTemplate from '../templates/todo.html';
 import variables from '../services/variables';
 import { formatDate } from '../services/dateTime';
 
 const TodoView = View.extend({
-    //tagName: 'li',
+    tagName: 'div',
+    attributes: function () {
+        return {
+            // id: this.model.get("name"),
+            class: 'todo-card__container',
+            draggable: true,
+        };
+    },
     template: todoTemplate,
     ui: {
         todoCard: '.todo-card__container',
@@ -18,15 +24,11 @@ const TodoView = View.extend({
     },
     events: {
         'dragstart @ui.todoCard': 'onDragStart',
-
-        // 'click @ui.todoCard': 'showUpdateInputFields',
         'click @ui.todoCardInfo': 'showUpdateInputFields',
         'click @ui.todoCardDelete': 'onCardDelete',
         'click @ui.modalCloseBtn': 'onPressCloseModal',
         'click @ui.modal': 'onClickModal',
-        // 'keydown @ui.todoInputTitle': 'onPressEnter',
         // 'keydown @ui.todoInputInfo': 'onPressEnter',
-
     },
     onDragStart(event) {
         console.log('event: ', event)
