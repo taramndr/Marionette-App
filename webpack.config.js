@@ -1,12 +1,15 @@
 const webpack = require('webpack');
-// const path = require('path');
-const { resolve } = require('path');
+const path = require('path');
+const { resolve } = path;
 
-var SRC_DIR = resolve(__dirname, 'src');
+console.log('__dirname', __dirname);
+
+var SRC_DIR = resolve(__dirname, 'frontend/src');
 const PUBLIC_DIR = resolve(__dirname, 'public');
 
 module.exports = {
-    entry: `${SRC_DIR}/index.js`,
+    mode: 'development',
+    entry: { app: [path.join(SRC_DIR, 'main')] },
     output: {
         filename: 'bundle.js',
         path: PUBLIC_DIR
@@ -14,8 +17,17 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js)$/,
-                exclude: /node_modules/
+                test: /\.?js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        babelrc: false,
+                        presets: ['@babel/preset-env'],
+                        cacheDirectory: true,
+                        plugins: ['@babel/plugin-proposal-function-bind', '@babel/plugin-proposal-class-properties'],
+                    }
+                }
             },
             {
                 test: /\.html$/,

@@ -19,14 +19,14 @@ const TodosView = CollectionView.extend({
         todoFormColorPaletteBtn: '.todo-add__show__color__palette'
     },
     events: {
-        'drop @ui.todoContainer': 'onDrop',
+        //'drop @ui.todoContainer': 'onDrop',
+        'drop': 'onDrop',
         'dragover @ui.todoContainer': 'onDragOverAllowDrop',
 
         'click @ui.todoDisabledInputWrap': 'showAddTodoForm',
         'click @ui.todoFormClose': 'onCloseForm',
         'click @ui.todoFormAddTodo': 'addToDo',
         'keydown @ui.todoInputTitle': 'onPressEnter',
-        // 'keydown @ui.todoInputInfo': 'onPressEnter',
         'mouseover @ui.todoFormColorPaletteBtn': 'toggleColorPaletteBox',
         'mouseout @ui.todoFormColorPaletteBtn': 'toggleColorPaletteBox',
     },
@@ -36,8 +36,10 @@ const TodosView = CollectionView.extend({
     onDragOverAllowDrop(event) {
         event.preventDefault();
     },
-    onDrop(e) {
+    onDrop(e, index) {
         e.preventDefault();
+
+        console.log('on drop index: ', index)
 
         var data = e.originalEvent.dataTransfer.getData('text');
 

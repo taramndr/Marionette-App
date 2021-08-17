@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx webpack serve",
-    "start:server": "node server/app.js",
+    "start:server": "node backend/app.js",
     "build:sass": "node-sass --output-style compressed public/scss/main.scss -o public/css",
     "watch:sass": "node-sass --watch --output-style compressed public/scss/main.scss -o public/css"
   },
@@ -25,6 +25,11 @@
     "uuid": "^3.4.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-function-bind": "^7.14.5",
+    "@babel/preset-env": "^7.15.0",
+    "babel-loader": "^8.2.2",
     "webpack": "^5.47.1",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2",
