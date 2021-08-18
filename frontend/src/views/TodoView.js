@@ -7,7 +7,7 @@ const TodoView = View.extend({
     tagName: 'div',
     attributes: function () {
         return {
-            // id: this.model.get("name"),
+            id: this.model.get('id'),
             class: 'todo-card__container',
             draggable: true,
         };
@@ -23,14 +23,14 @@ const TodoView = View.extend({
         modal: '.todo-card__form:not(.todo-modal__content)'
     },
     events: {
-        'dragstart @ui.todoCard': 'onDragStart',
+        // 'dragstart @ui.todoCard': 'onDragStart',
         'click @ui.todoCardInfo': 'showUpdateInputFields',
         'click @ui.todoCardDelete': 'onCardDelete',
         'click @ui.modalCloseBtn': 'onPressCloseModal',
         'click @ui.modal': 'onClickModal',
         // 'keydown @ui.todoInputInfo': 'onPressEnter',
     },
-    onDragStart(event) {
+    /* onDragStart(event) {
         console.log('event: ', event)
         event.originalEvent.dataTransfer.effectAllowed = 'drag';
 
@@ -42,7 +42,7 @@ const TodoView = View.extend({
             'dataTransfer',
             event.originalEvent.dataTransfer.getData('text')
         );
-    },
+    },  */
     onClickModal(e) {
         // e.stopPropagation();
         if (e.target === e.currentTarget) {

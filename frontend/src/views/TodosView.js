@@ -19,9 +19,11 @@ const TodosView = CollectionView.extend({
     },
     events: {
         //'drop @ui.todoContainer': 'onDrop',
-        'drop': 'onDrop',
-        'dragover @ui.todoContainer': 'onDragOverAllowDrop',
-
+        'drag .todo-card__container': 'draggable',
+        'dragstart .each-task': 'dragstart',
+        drop: 'onDrop',
+        //'dragover @ui.todoContainer': 'onDragOverAllowDrop',
+        dragover: 'onDragOverAllowDrop',
         'click @ui.todoDisabledInputWrap': 'showAddTodoForm',
         'click @ui.todoFormClose': 'onCloseForm',
         'click @ui.todoFormAddTodo': 'addToDo',
@@ -32,38 +34,45 @@ const TodosView = CollectionView.extend({
     childViewEvents: {
         'render:todo': 'reRenderView',
     },
+    draggable: function (event) {
+        console.log('hyy drag ', event.target.id)
+        // variables.mySourceId = event.target.id;
+        // variables.mySourceModel = this.model;
+    },
     onDragOverAllowDrop(event) {
         event.preventDefault();
+    },
+    dragstart(event) {
+        //
     },
     onDrop(e, index) {
         e.preventDefault();
 
-        console.log('on drop index: ', index)
-
-        var data = e.originalEvent.dataTransfer.getData('text');
-
-        console.log('modelID: ', data)
+        console.log('on drop index: ', e.target)
         console.log('model:', this.model)
 
-        // let draggedTodoModel = variables.todosCollection.findWhere({
-        //     id: data,
-        // });
-        // console.log('draggedTodoModel: ', draggedTodoModel)
-        // console.log('whole collection --', this.collection)
+        /* var data = e.originalEvent.dataTransfer.getData('text');
+        console.log('modelID: ', data)
 
-        // this.collection.remove(model);
+        let draggedTodoModel = variables.todosCollection.findWhere({
+            id: data,
+        });
+        console.log('draggedTodoModel: ', draggedTodoModel)
+        console.log('whole collection --', this.collection)
 
-        // this.collection.each(function(model, index){
-        //   var ordinal = index;
-        //   if(index >= position){
-        //     ordinal+=1;
-        //   }
-        //   model.set("ordinal", ordinal);
-        // });
+        this.collection.remove(model);
 
-        // model.set("ordinal", position);
-        // this.collection.add(model, {at: position});
-        // this.render();
+        this.collection.each(function(model, index){
+          var ordinal = index;
+          if(index >= position){
+            ordinal+=1;
+          }
+          model.set('ordinal', ordinal);
+        });
+
+        model.set("ordinal", position);
+        this.collection.add(model, {at: position});
+        this.render();  */
 
     },
     reRenderView() {
