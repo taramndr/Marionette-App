@@ -3,6 +3,9 @@ import RootView from './views/RootView';
 import TodoCollection from './collections/todos';
 import variables from './services/variables';
 
+import Router from "./router";
+import { history } from "backbone";
+
 variables.todosCollection = new TodoCollection();
 
 const App = Application.extend({
@@ -14,14 +17,15 @@ const App = Application.extend({
         //
     },
     onStart(app, options) {
-        const rootView = new RootView();
-        this.showView(rootView);
+        this.router = new Router();
+        history.start({pushState: true});
+
+        // commented below after applying router
+        // const rootView = new RootView();
+        // this.showView(rootView);
     }
 });
 
-const app = new App();
-
-// app.start();
 variables.todosCollection.fetch({
     success: () => {
         app.start();
@@ -30,3 +34,7 @@ variables.todosCollection.fetch({
         console.log("error on collection fetch:", error);
     },
 });
+
+const app = new App();
+// app.start();
+export default app;

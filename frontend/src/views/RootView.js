@@ -15,7 +15,6 @@ const RootView = View.extend({
     template,
     ui: {
         mainRegion: '.main-region > div',
-        // header: '.header',
         searchFormInput: '.header-search__input',
         searchResetBtn: '.header-search__input__reset',
     },

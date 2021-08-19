@@ -35,7 +35,9 @@ const TodosView = CollectionView.extend({
         'render:todo': 'reRenderView',
     },
     draggable: function (event) {
-        console.log('hyy drag ', event.target.id)
+        console.log('drag id:', event.target.id)
+        this.dragTodoId = event.target.id;
+
         // variables.mySourceId = event.target.id;
         // variables.mySourceModel = this.model;
     },
@@ -47,9 +49,18 @@ const TodosView = CollectionView.extend({
     },
     onDrop(e, index) {
         e.preventDefault();
+        console.log('draggged item: ', this.dragTodoId);
 
         console.log('on drop index: ', e.target)
         console.log('model:', this.model)
+
+        const targetId = e.target.id;
+        console.log('on drop targetId: ', targetId);
+
+        if(targetId) {
+            console.log('start sorting');
+            console.log(variables.todosCollection);
+        }
 
         /* var data = e.originalEvent.dataTransfer.getData('text');
         console.log('modelID: ', data)
@@ -124,6 +135,10 @@ const TodosView = CollectionView.extend({
             }
         }
     },
+    initialize() {
+        console.log('Init Todos')
+        this.dragTodoId = '';
+    }
 });
 
 export default TodosView;
